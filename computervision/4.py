@@ -1,0 +1,55 @@
+import argparse
+import os
+import sys
+
+import cv2 as cv
+import numpy as np
+
+#################### Preparation ####################
+
+# Parsing variables
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    'filename',
+    help='Image filename used for conversion and saving.',
+    type=str
+)
+args = parser.parse_args()
+
+# Save image path in variable
+image_name = f'images/{args.filename}'
+
+# Check if given path exists
+if not os.path.exists(image_name):
+    print('Image does not exist.')
+    sys.exit(1)
+
+# Read RGB image
+image_original = cv.imread(image_name, cv.IMREAD_COLOR)
+
+#################### Exercice 4 ####################
+
+# Create blurred version
+image_median = cv.medianBlur(image_original, 5)
+
+# Show all versions
+cv.imshow('original', image_original)
+cv.imshow('median blur', image_median)
+cv.waitKey(0)
+cv.destroyAllWindows()
+
+#################### Save ####################
+
+# Create 'output' folder if not exists
+print('Writing output files...')
+
+output_directory = "results/"
+if not os.path.isdir(output_directory):
+    print('Output folder does not exist, creating it...')
+    os.makedirs(output_directory)
+
+# Save
+median_output = f'results/median_{args.filename}'
+success = cv.imwrite(median_output, image_median)
+if not success:
+    print(f'Could not write to {median_output}.')
