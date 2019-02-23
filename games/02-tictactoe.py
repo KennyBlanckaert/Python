@@ -29,39 +29,50 @@ def check_for_winner(board):
 		return True
 	else:
 		return False
-	
 
-# Gameplay
+def game():
+	turn = 0
+	players = ("X", "O")
+	board = [" "] * 9
+
+	display(board)
+	while(not board_is_full(board)):
+
+		# Next turn
+		position = int(input(f"(Player {players[turn]}) Enter the number of your chosen position: "))
+		result = place_move_if_valid(board, players[turn], position - 1)
+
+		# Display changes
+		display(board)
+
+		# Check board
+		if (check_for_winner(board)):
+			break
+
+		# Move forward
+		if (result):
+			turn = (turn + 1) % 2
+		else:
+			print("That position has already been taken! Try again.")
+			continue
+
+	if (check_for_winner(board)):
+		print(f"############ Congratulations Player {players[turn]} ############")
+	else:
+		print("############ DRAW ############")
+
+# Start
 print("Welcome at TicTacToe!")
 print("This game uses a numeric keypad.")
-print(" ")
 
-turn = 0
-players = ("X", "O")
-board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+playing = True
+while (playing):
+	print(" ")
+	game()
 
-display(board)
-while(not board_is_full(board)):
+	result = input('Replay? [Y/N]: ')
+	if (result == 'N'):
+		playing = False
 
-	# Next turn
-	position = int(input(f"(Player {players[turn]}) Enter the number of your chosen position: "))
-	result = place_move_if_valid(board, players[turn], position - 1)
 
-	# Display changes
-	display(board)
 
-	# Check board
-	if (check_for_winner(board)):
-		break
-
-	# Move forward
-	if (result):
-		turn = (turn + 1) % 2
-	else:
-		print("That position has already been taken! Try again.")
-		continue
-
-if (check_for_winner(board)):
-	print(f"############ Congratulations Player {players[turn]} ############")
-else:
-	print("############ DRAW ############")
