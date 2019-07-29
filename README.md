@@ -27,14 +27,4 @@
 
 ###### 4. Series trainer
 
-## Libraries
-
-###### 1. matplotlib
-
-###### 2. numpy
-
-###### 3. scipy
-
-###### 4. requests
-
 
