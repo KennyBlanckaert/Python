@@ -9,6 +9,13 @@
 * median blur
 * sobel
 * filter2D
+* morphological operations
+* warp
+* edge detection
+* line detection
+* corner detection
+* feature vectors
+* random forest classifiers
 
 ## Games
 
